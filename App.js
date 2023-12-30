@@ -22,33 +22,50 @@ const DATA = [
     id: 'öge3',
     title: 'Üçüncü liste öğesi',
   },
+  {
+    id: 'öge4',
+    title: 'Dördüncü liste öğesi',
+  },
+  {
+    id: 'öge5',
+    title: 'Beşinci liste öğesi',
+  },
+  {
+    id: 'öge6',
+    title: 'Altıncı liste öğesi',
+  },
 ];
 
-const Item = ({ title }) => (
+const ListItem = ({ title }) => (
   <View style={styles.item}>
     <Text style={styles.title}>{title}</Text>
     <Text style={styles.text}>
-      {}
+      {'Bunlar benim Flatlistlerim'}
     </Text>
   </View>
 );
 
+const FlatListWithHeader = () => {
+  return (
+    <FlatList
+      data={DATA}
+      ListHeaderComponent={() => (
+        <View style={styles.scrollView}>
+          <Text style={styles.text}>
+            {'Bu scrollview normalde çalışıyor! Ancak aynı sayfada "FlatList" ve "ScrollView" kullanmak uyumsuzluklara neden oluyor.'}
+          </Text>
+        </View>
+      )}
+      renderItem={({ item }) => <ListItem title={item.title} />}
+      keyExtractor={item => item.id}
+    />
+  );
+};
+
 const App = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <FlatList
-          data={DATA}
-          renderItem={({ item }) => <Item title={item.title} />}
-          keyExtractor={item => item.id}
-        />
-        <View style={styles.scrollView}>
-          <Text style={styles.text}>
-            {}
- Bu scrollview normalde çalışıyor ! Ancak aynı sayfada "Flatlist" ve "ScrollView" kullanmak uyumsuzluklara neden oluyor.
-          </Text>
-        </View>
-      </ScrollView>
+      <FlatListWithHeader />
     </SafeAreaView>
   );
 };
@@ -72,7 +89,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     marginTop: 10,
     fontWeight: 'bold',
-    textAlign:'center',
+    textAlign: 'center',
   },
   scrollView: {
     backgroundColor: 'red',
